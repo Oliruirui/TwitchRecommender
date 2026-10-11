@@ -1,0 +1,9 @@
+.git
+.idea
+target
+data
+artifacts
+.superpowers
+**/__pycache__
+**/.pytest_cache
+.venv

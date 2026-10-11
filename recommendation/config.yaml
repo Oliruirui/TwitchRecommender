@@ -1,0 +1,5 @@
+{
+  "max_users": 5000,
+  "seed": 42,
+  "evaluation_k": [10, 200]
+}
