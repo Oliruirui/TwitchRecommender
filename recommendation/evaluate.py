@@ -32,11 +32,8 @@ def ranking_metrics(recommendations: list[str], relevant: set[str], k: int) -> d
     return {'recall': sum(hits) / len(relevant), 'ndcg': dcg / ideal}
 
 
-def evaluate_popular(train: pd.DataFrame, validation: pd.DataFrame, ks: tuple[int, ...] = (10, 200)) -> dict:
-    if not ks or any(isinstance(k, bool) or not isinstance(k, int) or k <= 0 for k in ks):
-        raise ValueError('K values must be positive integers')
-    popular = build_popular(train)
-    channels = {item['channel_name'] for item in popular}
+def validation_cases(train: pd.DataFrame, validation: pd.DataFrame) -> tuple[dict, dict]:
+    channels = set(train.channel_name)
     users = set(train.user_id)
     pairs = validation[['user_id', 'channel_name']].drop_duplicates()
     known_user = pairs.user_id.isin(users)
@@ -55,10 +52,19 @@ def evaluate_popular(train: pd.DataFrame, validation: pd.DataFrame, ks: tuple[in
         'unknown_channel_pairs': int((~known_channel).sum()),
         'unknown_user_pairs': int((~known_user).sum()),
     }
+    return labels.to_dict(), coverage
+
+
+def evaluate_popular(train: pd.DataFrame, validation: pd.DataFrame, ks: tuple[int, ...] = (10, 200)) -> dict:
+    if not ks or any(isinstance(k, bool) or not isinstance(k, int) or k <= 0 for k in ks):
+        raise ValueError('K values must be positive integers')
+    popular = build_popular(train)
+    channels = {item['channel_name'] for item in popular}
+    labels, coverage = validation_cases(train, validation)
     metrics = {}
     for k in ks:
         recommendations = [item['channel_name'] for item in popular[:k]]
-        scores = [ranking_metrics(recommendations, relevant, k) for relevant in labels]
+        scores = [ranking_metrics(recommendations, relevant, k) for relevant in labels.values()]
         metrics[str(k)] = {key: math.fsum(s[key] for s in scores) / len(scores) for key in ['recall', 'ndcg']}
     return {
         'method': 'popular_distinct_training_users', 'split': 'validation', 'catalog_channels': len(channels),
@@ -70,6 +76,60 @@ def evaluate_popular(train: pd.DataFrame, validation: pd.DataFrame, ks: tuple[in
             'unknown_coverage': 'unknown_user_pairs and unknown_channel_pairs use all validation_user_channel_pairs as denominator and may overlap; user counts use validation_users',
             'ndcg': 'binary relevance; ideal DCG over min(K, eligible relevant channels)',
         },
+    }
+
+
+def validate_mappings(train: pd.DataFrame, user_mapping: dict, channel_mapping: dict) -> None:
+    expected_users = {u: i for i, u in enumerate(sorted(train.user_id.unique()))}
+    expected_channels = {c: i for i, c in enumerate(sorted(train.channel_name.unique()))}
+    if user_mapping != expected_users or channel_mapping != expected_channels:
+        raise ValueError('ID mapping does not match sorted training identities')
+
+
+def evaluate_retrieval(model, train: pd.DataFrame, validation: pd.DataFrame,
+                       user_mapping: dict, channel_mapping: dict,
+                       ks: tuple[int, ...] = (10, 200), user_batch_size: int = 64) -> dict:
+    import torch
+    validate_mappings(train, user_mapping, channel_mapping)
+    if not ks or any(isinstance(k, bool) or not isinstance(k, int) or k <= 0 for k in ks):
+        raise ValueError('K values must be positive integers')
+    if user_batch_size <= 0:
+        raise ValueError('user_batch_size must be positive')
+    labels, coverage = validation_cases(train, validation)
+    user_names = sorted(labels)
+    channel_names = sorted(channel_mapping, key=channel_mapping.get)
+    totals = {str(k): {'recall': [], 'ndcg': []} for k in ks}
+    previous_mode = model.training
+    model.eval()
+    try:
+        with torch.inference_mode():
+            vectors = model.encode_channels(torch.arange(len(channel_names)))
+            if vectors.ndim != 2 or not torch.isfinite(vectors).all():
+                raise ValueError('Channel vectors must be a finite matrix')
+            for start in range(0, len(user_names), user_batch_size):
+                names = user_names[start:start + user_batch_size]
+                user_vectors = model.encode_users(torch.tensor([user_mapping[u] for u in names]))
+                if user_vectors.ndim != 2 or user_vectors.shape[1] != vectors.shape[1]:
+                    raise ValueError('User and channel vector dimensions mismatch')
+                scores = user_vectors @ vectors.T
+                if not torch.isfinite(scores).all():
+                    raise ValueError('Retrieval scores must be finite')
+                indices = torch.argsort(scores, dim=1, descending=True, stable=True)[:, :min(max(ks),len(channel_names))]
+                for name, row in zip(names, indices.tolist()):
+                    recommendations = [channel_names[i] for i in row]
+                    for k in ks:
+                        values = ranking_metrics(recommendations, labels[name], k)
+                        for key, value in values.items():
+                            totals[str(k)][key].append(value)
+    finally:
+        model.train(previous_mode)
+    return {
+        'method': 'two_tower_exact_dot_product', 'split': 'validation',
+        'catalog_channels': len(channel_names), 'coverage': coverage,
+        'metrics': {k: {metric: math.fsum(values) / len(user_names) for metric, values in pair.items()} for k, pair in totals.items()},
+        'protocol': {'queries': 'one per eligible training-known user at validation start',
+                     'relevance': 'distinct training-known validation channels; repeat viewing allowed',
+                     'averaging': 'equal user weights', 'score_ties': 'ascending internal channel index'},
     }
 
 
