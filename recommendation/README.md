@@ -44,3 +44,31 @@ Baseline popularity counts distinct training users per channel, breaking ties by
 `validation_report.json` records metrics, coverage denominators, protocol, source and prepared-file checksums, seed, and timeline. `popular_channels.json` contains the full ordered training catalog. Channel IDs are bundle-local embedding indices, not Twitch numeric IDs. The test split is created but is not consumed by the baseline validation evaluator.
 
 The current laptop run passed 13 Python tests. Java files are unchanged; Java build verification and Docker runtime verification are not included in that claim.
+
+## Two-tower retrieval training
+
+Update the Python environment with the pinned requirements before running training. PyTorch is now included. All training/inference in this milestone uses CPU; no GPU or paid service is required.
+
+```bash
+.venv/bin/python -m pip install -r recommendation/requirements.txt
+.venv/bin/python -m recommendation.train --smoke --output artifacts/retrieval-smoke-own
+.venv/bin/python -m recommendation.train --prepared data/prepared-v001 --output artifacts/retrieval-own-v001
+```
+
+For the existing chat checkout and prepared data, use `../python-env/bin/python` instead of `.venv/bin/python`, and `data/prepared` instead of `data/prepared-v001`. Choose a new output directory for each run.
+
+The smoke command generates tiny synthetic observations and runs two epochs to exercise the pipeline. Its metrics are not representative recommendation-quality results. A full run uses settings from the `training` section of `config.yaml`, initially ten epochs. Each epoch prints mean training loss and validation Recall/NDCG at K=10,200. The selected epoch maximizes validation Recall@200; ties keep the earlier epoch.
+
+Outputs:
+
+- `checkpoints/epoch-001.pt`, etc.: weights, optimizer, random states, data/mapping fingerprints and metrics for each epoch. Automated resume is not implemented.
+- `best_model.pt`: selected model state dictionary, loaded with `weights_only=True`.
+- `model_config.json`: architecture, vocabulary sizes, runtime/configuration, selected epoch and fingerprints.
+- `training_history.json`: loss, validation metrics and elapsed time per epoch.
+- `validation_comparison.json`: model and popular-baseline metrics with identical eligible-user coverage.
+
+These are offline training artifacts, not yet a complete FAISS serving bundle. `model.py` defines separate user/channel Embedding→Linear towers; `sampling.py` chooses uniform negatives outside every user's training-positive set. Training averages pairwise logistic losses per positive example, preserving equal weight for users with fewer available negatives. Separate repeat observations remain positive examples.
+
+Validation uses exact dot-product matrix search over the training catalog, batched by users, with stable index-based score ties. No FAISS or service is needed for this reference evaluation. Test data is not consumed: it remains reserved until the complete chosen pipeline is frozen. A higher validation score is evidence on this offline task, not an online engagement lift.
+
+Native CPU execution has been checked; Docker build/runtime remains unverified on the current laptop. Reproducibility is scoped to the recorded runtime/configuration, not guaranteed across PyTorch versions or platforms.

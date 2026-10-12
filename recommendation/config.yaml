@@ -1,5 +1,14 @@
-{
-  "max_users": 5000,
-  "seed": 42,
-  "evaluation_k": [10, 200]
-}
+max_users: 5000
+seed: 42
+evaluation_k:
+- 10
+- 200
+training:
+  dimension: 32
+  negative_count: 5
+  learning_rate: 0.001
+  batch_size: 256
+  epochs: 10
+  seed: 42
+  threads: 1
+  evaluation_user_batch_size: 64
