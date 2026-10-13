@@ -15,7 +15,7 @@ From the repository root, using Python 3.12:
 ```bash
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r recommendation/requirements.txt
-.venv/bin/python -m pytest -q
+.venv/bin/python -m recommendation.run -m pytest -q
 .venv/bin/python -m recommendation.prepare_data --input data/raw/100k_a.csv --output data/prepared-v001
 .venv/bin/python -m recommendation.evaluate --prepared data/prepared-v001 --output artifacts/baseline-validation-v001
 ```
@@ -72,3 +72,39 @@ These are offline training artifacts, not yet a complete FAISS serving bundle. `
 Validation uses exact dot-product matrix search over the training catalog, batched by users, with stable index-based score ties. No FAISS or service is needed for this reference evaluation. Test data is not consumed: it remains reserved until the complete chosen pipeline is frozen. A higher validation score is evidence on this offline task, not an online engagement lift.
 
 Native CPU execution has been checked; Docker build/runtime remains unverified on the current laptop. Reproducibility is scoped to the recorded runtime/configuration, not guaranteed across PyTorch versions or platforms.
+
+## Offline FAISS bundle export
+
+Install the updated pinned requirements first. This step uses an already-trained model; it does not train or start a server. For the thirty-epoch experiment in this checkout:
+
+```bash
+../python-env/bin/python -m pip install -r recommendation/requirements.txt
+../python-env/bin/python -m recommendation.run -m recommendation.export \
+  --model artifacts/retrieval-30epochs-v001 \
+  --prepared data/prepared \
+  --output artifacts/retrieval-bundle-v001 \
+  --version retrieval-bundle-v001
+../python-env/bin/python -m recommendation.run -m pytest -q
+```
+
+Use your own trained directory and interpreter if different. The thirty-epoch output was produced by a separate controlled experiment; the repository training default remains ten epochs. Choose a fresh bundle directory for every export, including when repeating the command. Generated models, indexes and data remain local and ignored by Git.
+
+`recommendation.run` is a small Python launcher. On macOS, the installed PyTorch and FAISS wheels can load separate OpenMP runtimes and abort when used together. The launcher resolves both to PyTorch's bundled runtime by setting the child process's `DYLD_LIBRARY_PATH` before Python starts. It does not import either native library, modify installed binaries, change global shell settings, or enable `KMP_DUPLICATE_LIB_OK`. Elsewhere it forwards to the same interpreter without changing library paths. This compatibility step was verified with actual Torch computation and FAISS search on the laptop; Linux/container execution is still unverified. See the [upstream compatibility issue](https://github.com/pytorch/pytorch/issues/149201).
+
+The bundle contains:
+
+| File | Content |
+|---|---|
+| `retrieval_model.pt` | Selected weights, loaded with `weights_only=True` |
+| `model_config.json` | Architecture, dimensions, selected epoch and training provenance |
+| `user_mapping.json`, `channel_mapping.json` | Exact training identity assignments |
+| `channel_vectors.npy` | Contiguous float32 channel vectors, row i = internal channel index i |
+| `channels.faiss` | Exact `IndexFlatIP` dot-product index, with no normalization |
+| `popular_channels.json` | Full training-only popularity snapshot for later fallback |
+| `manifest.json` | Bundle version, index metadata, runtime versions and payload checksums |
+
+`export_bundle()` verifies the consumed training inputs against recorded fingerprints and checks mappings before generating vectors. It writes into a temporary sibling directory, validates a complete reload, then publishes the final directory. Failed exports leave no published bundle. Held-out validation/test labels are not needed by export.
+
+`load_bundle(path)` verifies all payload checksums before native index deserialization, then checks model finiteness, mappings, vector dimensions, model/vector/index alignment and popularity IDs. It returns the loaded model, index, vectors, mappings, popularity and manifest for the later service. Only locally trusted bundles are in scope; checksums detect inconsistent or changed files, not authenticate an untrusted manifest.
+
+When searching a small catalog, use `min(k, index.ntotal)` to avoid FAISS padding IDs. Exact search uses learned dot products, not cosine similarity. Floating-point scores should match direct scoring within tolerance; tied scores can change order or membership at the K boundary. This step includes verification searches, not an online Top K API. The best model is copied from training output; its weights are not retrained or updated during export.
