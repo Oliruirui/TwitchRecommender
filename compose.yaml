@@ -1,0 +1,17 @@
+services:
+  recommender:
+    build:
+      context: .
+      dockerfile: recommendation/Dockerfile
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      RECOMMENDER_BUNDLE_DIR: /app/artifacts/retrieval-bundle-v001
+    volumes:
+      - type: bind
+        source: ./artifacts/retrieval-bundle-v001
+        target: /app/artifacts/retrieval-bundle-v001
+        read_only: true
+        bind:
+          create_host_path: false
+    command: ["-m", "uvicorn", "recommendation.serve:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
