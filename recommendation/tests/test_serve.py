@@ -106,3 +106,23 @@ def test_environment_configuration_and_shutdown(bundle_dir, monkeypatch):
         assert client.get('/health/ready').status_code == 200
         assert client.get('/docs').status_code == 200
     assert app.state.engine is None
+
+
+@pytest.mark.parametrize('version', [None, 123, '', 'bad version', 'x'*129])
+def test_invalid_bundle_version_never_reports_ready(bundle_dir, version):
+    import json
+    path = bundle_dir / 'manifest.json'
+    manifest = json.loads(path.read_text())
+    manifest['model_version'] = version
+    path.write_text(json.dumps(manifest))
+    with TestClient(make_app(bundle_dir), raise_server_exceptions=False) as client:
+        assert client.get('/health/ready').status_code == 503
+        assert client.post('/v1/recommendations', json={'user_id': 'alice'}).status_code == 503
+
+
+def test_incomplete_personalized_warmup_never_reports_ready(bundle_dir, monkeypatch):
+    from recommendation.retrieval import RetrievalEngine
+    monkeypatch.setattr(RetrievalEngine, 'recommend', lambda *a: {'method': 'two_tower'})
+    with TestClient(make_app(bundle_dir)) as client:
+        assert client.get('/health/ready').status_code == 503
+        assert client.post('/v1/recommendations', json={'user_id': 'alice'}).status_code == 503

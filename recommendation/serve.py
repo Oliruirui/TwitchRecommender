@@ -31,7 +31,8 @@ class RecommendationItem(BaseModel):
 
 class RecommendationResponse(BaseModel):
     request_id: str
-    model_version: str
+    model_version: Annotated[str, StringConstraints(
+        strict=True, min_length=1, max_length=128, pattern=r'^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$')]
     method: Literal['two_tower', 'popular']
     fallback_reason: Literal['unknown_user', 'retrieval_error'] | None
     items: list[RecommendationItem]
@@ -48,7 +49,8 @@ def create_app(bundle_dir: Path | None = None) -> FastAPI:
             torch.set_num_threads(1)
             engine = RetrievalEngine(load_bundle(Path(configured)))
             warmup = engine.recommend(next(iter(engine.users)), 1)
-            if warmup['method'] != 'two_tower':
+            response = RecommendationResponse.model_validate({'request_id': str(uuid4()), **warmup})
+            if response.method != 'two_tower' or response.fallback_reason is not None or len(response.items) != 1:
                 raise ValueError('Personalized retrieval warmup failed')
             application.state.engine = engine
         except Exception:
