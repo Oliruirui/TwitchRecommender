@@ -1,6 +1,6 @@
-# Offline data preparation and popular baseline
+# Channel recommendation pipeline
 
-This is the first recommendation milestone inside the existing Java repository. It prepares LiveRec's historical observations and evaluates a training-only popular-channel baseline. It does not train a neural model or start an API service yet.
+This Python package inside the existing Java repository prepares LiveRec observations, evaluates a popular-channel baseline, trains a two-tower model, exports a FAISS bundle, and serves local HTTP recommendations. The sections below describe each stage separately.
 
 ## Data source
 
@@ -108,3 +108,51 @@ The bundle contains:
 `load_bundle(path)` verifies all payload checksums before native index deserialization, then checks model finiteness, mappings, vector dimensions, model/vector/index alignment and popularity IDs. It returns the loaded model, index, vectors, mappings, popularity and manifest for the later service. Only locally trusted bundles are in scope; checksums detect inconsistent or changed files, not authenticate an untrusted manifest.
 
 When searching a small catalog, use `min(k, index.ntotal)` to avoid FAISS padding IDs. Exact search uses learned dot products, not cosine similarity. Floating-point scores should match direct scoring within tolerance; tied scores can change order or membership at the K boundary. This step includes verification searches, not an online Top K API. The best model is copied from training output; its weights are not retrained or updated during export.
+
+## Local retrieval HTTP service
+
+The service loads a trusted exported bundle once at startup, then keeps its model, FAISS index and mappings in memory. Requests do not train, rebuild the index, or read historical datasets. This first version returns retrieval results directly; ranking, Java integration and the frontend are later milestones.
+
+From the repository root, install dependencies and start one worker:
+
+```bash
+.venv/bin/python -m pip install -r recommendation/requirements.txt
+RECOMMENDER_BUNDLE_DIR=artifacts/retrieval-bundle-v001 \
+.venv/bin/python -m recommendation.run -m uvicorn \
+  recommendation.serve:app --host 127.0.0.1 --port 8000 --workers 1
+```
+
+For the existing chat checkout, replace `.venv/bin/python` with `../python-env/bin/python`. Keep the terminal running; stop it with Ctrl+C. Open `http://127.0.0.1:8000/docs` for interactive API documentation. In another terminal:
+
+```bash
+curl -s http://127.0.0.1:8000/health/live
+curl -s http://127.0.0.1:8000/health/ready
+curl -s http://127.0.0.1:8000/v1/recommendations \
+  -H 'Content-Type: application/json' -d '{"user_id":"1","k":10}'
+curl -s http://127.0.0.1:8000/v1/recommendations \
+  -H 'Content-Type: application/json' -d '{"user_id":"new-user","k":10}'
+```
+
+`user_id` must be a string, trimmed to 1–128 characters. These are anonymized dataset identities; application-account mapping is future integration work. `k` defaults to 10 and must be an integer from 1 to 200. Invalid requests return HTTP 422, including numeric strings, floats, booleans and null K values.
+
+A successful response includes a new `request_id` (UUID4), the bundle's `model_version`, `method`, `fallback_reason` and `items`. Each item has a bundle-local string `channel_id`, `channel_name` and `retrieval_score`. Return count is `min(k, catalog_size)`, without duplicates. Known-user scores are raw learned dot products, not probabilities; previously observed channels remain eligible. Results are sorted by descending score, then numeric channel ID for ties within the returned set. FAISS chooses membership at tied K boundaries.
+
+Unknown users get HTTP 200 with `method="popular"`, `fallback_reason="unknown_user"` and null scores. A recoverable inference/search failure uses `fallback_reason="retrieval_error"` with the same validated popularity snapshot; details are logged only on the server.
+
+Liveness returns `{"status":"alive"}`. Readiness returns `{"status":"ready","model_version":"..."}` only after complete bundle validation and a successful personalized warmup. Missing/corrupt artifacts or failed warmup leave the process alive but unready: readiness returns 503 and recommendation requests return 503 with `{"detail":"recommendation service unavailable"}`. Correct configuration and restart; no automatic reload or partial-bundle fallback. Readiness is startup usability, not continuous model-quality monitoring.
+
+Run the suite through the native compatibility launcher:
+
+```bash
+.venv/bin/python -m recommendation.run -m pytest -q
+```
+
+Optional Docker Compose (Docker must be installed and running):
+
+```bash
+docker compose up --build recommender
+# Stop with Ctrl+C, then remove the stopped container:
+docker compose down
+```
+
+Compose uses the existing Python image entry point with a Uvicorn command, binds only localhost port 8000 and mounts the exported bundle read-only. Export the bundle first; Compose refuses to silently create a missing host bundle directory. It starts only the Python service. Native macOS serving is verified; Docker/Linux build and runtime remain unverified on this laptop, which has no Docker executable. No throughput or latency target has been validated yet.
