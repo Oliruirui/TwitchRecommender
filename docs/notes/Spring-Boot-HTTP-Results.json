@@ -1,0 +1,32 @@
+{
+  "root": {
+    "status": 200,
+    "body": "HTML backend landing page"
+  },
+  "post_echo": {
+    "status": 200,
+    "body": {
+      "name": "Minecraft",
+      "id": "42",
+      "box_art_url": "https://example.test/box"
+    }
+  },
+  "unconfigured_game": {
+    "status": 503,
+    "body": {
+      "error": "twitch_unconfigured"
+    }
+  },
+  "invalid_limit": {
+    "status": 400,
+    "body": {
+      "error": "invalid_request"
+    }
+  },
+  "unconfigured_search": {
+    "status": 503,
+    "body": {
+      "error": "twitch_unconfigured"
+    }
+  }
+}

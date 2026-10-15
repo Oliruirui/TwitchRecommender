@@ -4,6 +4,9 @@ import com.example.myProject1.externalTwitch.TwitchClient;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.cfg.CoercionAction;
+import com.fasterxml.jackson.databind.cfg.CoercionInputShape;
+import com.fasterxml.jackson.databind.type.LogicalType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +19,13 @@ import java.time.Duration;
 public class TwitchConfiguration {
     @Bean public Jackson2ObjectMapperBuilderCustomizer strictJson() {
         return builder -> builder.featuresToDisable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
-            .featuresToEnable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
+            .featuresToEnable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS)
+            .postConfigurer(mapper -> {
+                for (var shape : new CoercionInputShape[]{CoercionInputShape.Integer,
+                        CoercionInputShape.Float, CoercionInputShape.Boolean}) {
+                    mapper.coercionConfigFor(LogicalType.Textual).setCoercion(shape, CoercionAction.Fail);
+                }
+            });
     }
 
     @Bean(destroyMethod = "close") public HttpClient twitchHttpClient() {

@@ -7,7 +7,7 @@ Designs, learning notes and recorded experiment results for building TwitchRecom
 - [High-level design](notes/TwitchRecommender-HLD-v0.1.md)
 - [Working low-level design](notes/TwitchRecommender-LLD-v0.1.md): agreed details and future proposals; not all planned components exist yet.
 - [Current Python installation, training, export and API instructions](../recommendation/README.md)
-- [Approved Spring Boot migration design](notes/Spring-Boot-Migration-Design.md): next milestone; implementation pending.
+- [Spring Boot migration](notes/Spring-Boot-Migration-Design.md): design, [implementation plan](notes/Spring-Boot-Migration-Implementation-Plan.md) and [verification results](notes/Spring-Boot-Migration-Results.md).
 
 ## Implemented milestones
 
