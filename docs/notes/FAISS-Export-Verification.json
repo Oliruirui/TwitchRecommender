@@ -1,0 +1,16 @@
+{
+  "bundle_version": "retrieval-bundle-v001",
+  "selected_epoch": 30,
+  "users_checked": 4802,
+  "channels": 19861,
+  "dimension": 32,
+  "k": 200,
+  "exact_top_k_sets": 4802,
+  "exact_order": 4764,
+  "tie_equivalent_boundaries": 0,
+  "max_absolute_score_difference": 7.62939453125e-06,
+  "score_rtol": 1e-05,
+  "score_atol": 1e-05,
+  "test_labels_read": false,
+  "bundle_payload_bytes": 10615319
+}

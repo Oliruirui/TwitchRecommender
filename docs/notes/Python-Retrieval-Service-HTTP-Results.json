@@ -1,0 +1,130 @@
+{
+  "live": {
+    "status": "alive"
+  },
+  "ready": {
+    "status": "ready",
+    "model_version": "retrieval-bundle-v001"
+  },
+  "known_user": {
+    "request_id": "2c88be93-663a-48df-b04f-71cca7eb43aa",
+    "model_version": "retrieval-bundle-v001",
+    "method": "two_tower",
+    "fallback_reason": null,
+    "items": [
+      {
+        "channel_id": "12321",
+        "channel_name": "ninja",
+        "retrieval_score": 21.489791870117188
+      },
+      {
+        "channel_id": "17025",
+        "channel_name": "tfue",
+        "retrieval_score": 19.146888732910156
+      },
+      {
+        "channel_id": "4976",
+        "channel_name": "esl_csgo",
+        "retrieval_score": 18.474407196044922
+      },
+      {
+        "channel_id": "8874",
+        "channel_name": "kendinemuzisyen",
+        "retrieval_score": 16.42693328857422
+      },
+      {
+        "channel_id": "15963",
+        "channel_name": "sodapoppin",
+        "retrieval_score": 16.05050277709961
+      },
+      {
+        "channel_id": "11335",
+        "channel_name": "mithrain",
+        "retrieval_score": 15.919878005981445
+      },
+      {
+        "channel_id": "1307",
+        "channel_name": "aydan",
+        "retrieval_score": 15.615865707397461
+      },
+      {
+        "channel_id": "2724",
+        "channel_name": "chap",
+        "retrieval_score": 15.558822631835938
+      },
+      {
+        "channel_id": "18936",
+        "channel_name": "wtcn",
+        "retrieval_score": 15.42753791809082
+      },
+      {
+        "channel_id": "12960",
+        "channel_name": "overwatchleague",
+        "retrieval_score": 15.250789642333984
+      }
+    ]
+  },
+  "unknown_user": {
+    "request_id": "deef8b48-fbdc-4fec-9651-eefb2afdc54e",
+    "model_version": "retrieval-bundle-v001",
+    "method": "popular",
+    "fallback_reason": "unknown_user",
+    "items": [
+      {
+        "channel_id": "12321",
+        "channel_name": "ninja",
+        "retrieval_score": null
+      },
+      {
+        "channel_id": "17025",
+        "channel_name": "tfue",
+        "retrieval_score": null
+      },
+      {
+        "channel_id": "15493",
+        "channel_name": "shroud",
+        "retrieval_score": null
+      },
+      {
+        "channel_id": "14502",
+        "channel_name": "riotgames",
+        "retrieval_score": null
+      },
+      {
+        "channel_id": "4976",
+        "channel_name": "esl_csgo",
+        "retrieval_score": null
+      },
+      {
+        "channel_id": "15963",
+        "channel_name": "sodapoppin",
+        "retrieval_score": null
+      },
+      {
+        "channel_id": "5779",
+        "channel_name": "fortnite",
+        "retrieval_score": null
+      },
+      {
+        "channel_id": "3532",
+        "channel_name": "dakotaz",
+        "retrieval_score": null
+      },
+      {
+        "channel_id": "17499",
+        "channel_name": "timthetatman",
+        "retrieval_score": null
+      },
+      {
+        "channel_id": "12231",
+        "channel_name": "nickmercs",
+        "retrieval_score": null
+      }
+    ]
+  },
+  "invalid_k_status": 422,
+  "docs_status": 200,
+  "known_top10_matches_independent_dot_products": true,
+  "container_verified": false,
+  "container_limitation": "Docker executable unavailable"
+}

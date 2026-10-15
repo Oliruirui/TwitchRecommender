@@ -1,0 +1,1082 @@
+[
+  {
+    "elapsed_seconds": 14.684484208992217,
+    "epoch": 1,
+    "mean_training_loss": 0.7698230053176259,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.0003515227873485271,
+          "recall": 0.00035645519516487253
+        },
+        "200": {
+          "ndcg": 0.003771587983774484,
+          "recall": 0.015773261493336264
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 28.497001666997676,
+    "epoch": 2,
+    "mean_training_loss": 0.689446593605207,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.0004130807432107181,
+          "recall": 0.00038374675471449665
+        },
+        "200": {
+          "ndcg": 0.00389080652462825,
+          "recall": 0.015243293243089161
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 42.39162066699646,
+    "epoch": 3,
+    "mean_training_loss": 0.6798197128438469,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.001097731843253863,
+          "recall": 0.001286821044885561
+        },
+        "200": {
+          "ndcg": 0.005725610872080211,
+          "recall": 0.02159842945882455
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 56.15654645899485,
+    "epoch": 4,
+    "mean_training_loss": 0.6636343209065734,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.0020495320495134022,
+          "recall": 0.002319879454604312
+        },
+        "200": {
+          "ndcg": 0.008328227203882125,
+          "recall": 0.02887637159500287
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 70.18292629199277,
+    "epoch": 5,
+    "mean_training_loss": 0.6358861107774523,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.002648415277981209,
+          "recall": 0.0029466673142394704
+        },
+        "200": {
+          "ndcg": 0.011420594273280902,
+          "recall": 0.040457553148768456
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 83.98690233399975,
+    "epoch": 6,
+    "mean_training_loss": 0.5961713595781836,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.005954639495248793,
+          "recall": 0.007686132515919011
+        },
+        "200": {
+          "ndcg": 0.019828576096127377,
+          "recall": 0.06771822654695893
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 97.96265349999885,
+    "epoch": 7,
+    "mean_training_loss": 0.5460176207777329,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.011868976611870712,
+          "recall": 0.015405107284794127
+        },
+        "200": {
+          "ndcg": 0.0319750239220507,
+          "recall": 0.10017528551853945
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 112.28007045898994,
+    "epoch": 8,
+    "mean_training_loss": 0.4913315535884417,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.020380295725514516,
+          "recall": 0.027111382910040307
+        },
+        "200": {
+          "ndcg": 0.047261982161647946,
+          "recall": 0.13789919353584026
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 128.2853026669909,
+    "epoch": 9,
+    "mean_training_loss": 0.4376600397362624,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.030851962834338068,
+          "recall": 0.04040504988579557
+        },
+        "200": {
+          "ndcg": 0.06525469571803211,
+          "recall": 0.17977133662129732
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 143.73238833399955,
+    "epoch": 10,
+    "mean_training_loss": 0.3852079815914426,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.03845148379751161,
+          "recall": 0.05224177336915262
+        },
+        "200": {
+          "ndcg": 0.07970240075581314,
+          "recall": 0.21680529675438645
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 158.8530893749994,
+    "epoch": 11,
+    "mean_training_loss": 0.3397103001958727,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.04557074503904638,
+          "recall": 0.06039103549992358
+        },
+        "200": {
+          "ndcg": 0.09405218536901537,
+          "recall": 0.24904866439947965
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 174.35185624999576,
+    "epoch": 12,
+    "mean_training_loss": 0.3003912725114342,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.053280431268312646,
+          "recall": 0.07135483412763954
+        },
+        "200": {
+          "ndcg": 0.1074291983753857,
+          "recall": 0.28275578014642627
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 188.69779974999256,
+    "epoch": 13,
+    "mean_training_loss": 0.2660939414634158,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.057584742132941805,
+          "recall": 0.07649088416694953
+        },
+        "200": {
+          "ndcg": 0.1172910609826102,
+          "recall": 0.3063753948644337
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 202.849654583988,
+    "epoch": 14,
+    "mean_training_loss": 0.23878116141124625,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.06325368265963818,
+          "recall": 0.0838380749519212
+        },
+        "200": {
+          "ndcg": 0.12833663395250716,
+          "recall": 0.33445420766288675
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 217.04126558399003,
+    "epoch": 15,
+    "mean_training_loss": 0.21344019590100052,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.06838984625935282,
+          "recall": 0.09278279153209212
+        },
+        "200": {
+          "ndcg": 0.13672504989246312,
+          "recall": 0.3559236808661152
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 231.20269562499016,
+    "epoch": 16,
+    "mean_training_loss": 0.19119853087629485,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.07125214979063238,
+          "recall": 0.09325666288507063
+        },
+        "200": {
+          "ndcg": 0.1440405134918201,
+          "recall": 0.374134342364443
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 245.3843272919912,
+    "epoch": 17,
+    "mean_training_loss": 0.17365204970980688,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.07560543825874212,
+          "recall": 0.09927785704668227
+        },
+        "200": {
+          "ndcg": 0.15131335567374757,
+          "recall": 0.3911839518501128
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 259.46488387499994,
+    "epoch": 18,
+    "mean_training_loss": 0.1582915533256106,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.07702784203453218,
+          "recall": 0.10062973030435217
+        },
+        "200": {
+          "ndcg": 0.15602778169325138,
+          "recall": 0.4050282396599302
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 273.53967274999013,
+    "epoch": 19,
+    "mean_training_loss": 0.1436183633059148,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.07967588773646643,
+          "recall": 0.10453087040718008
+        },
+        "200": {
+          "ndcg": 0.16102880422954807,
+          "recall": 0.41682426231223496
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 287.61370824999176,
+    "epoch": 20,
+    "mean_training_loss": 0.13137756412478033,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.08309281939965382,
+          "recall": 0.1081342684777708
+        },
+        "200": {
+          "ndcg": 0.1654424220875268,
+          "recall": 0.42272312721583016
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 301.88275791698834,
+    "epoch": 21,
+    "mean_training_loss": 0.1217967727069334,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.08537961178258809,
+          "recall": 0.11119508568163086
+        },
+        "200": {
+          "ndcg": 0.16959665873130386,
+          "recall": 0.43409366730598764
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 315.70870787499007,
+    "epoch": 22,
+    "mean_training_loss": 0.11194903977636586,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.0873829285242742,
+          "recall": 0.11248139060355486
+        },
+        "200": {
+          "ndcg": 0.17437788166062246,
+          "recall": 0.44558548338097853
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 329.97426641698985,
+    "epoch": 23,
+    "mean_training_loss": 0.10221557245293299,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.08986259062415235,
+          "recall": 0.11593261787909015
+        },
+        "200": {
+          "ndcg": 0.17857263234890516,
+          "recall": 0.4577338473884753
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 344.38505483399786,
+    "epoch": 24,
+    "mean_training_loss": 0.0950854870951702,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.0895530448944213,
+          "recall": 0.11667430419602323
+        },
+        "200": {
+          "ndcg": 0.17995112240501646,
+          "recall": 0.46254045520404297
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 358.7088876669877,
+    "epoch": 25,
+    "mean_training_loss": 0.08807699291005235,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.09101077457988996,
+          "recall": 0.11875804322255558
+        },
+        "200": {
+          "ndcg": 0.182606822342034,
+          "recall": 0.46987768968763793
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 373.1893770839961,
+    "epoch": 26,
+    "mean_training_loss": 0.08262186112339694,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.09326220486692711,
+          "recall": 0.12035237688631273
+        },
+        "200": {
+          "ndcg": 0.18682192402136202,
+          "recall": 0.48003621279198594
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 387.47816791699734,
+    "epoch": 27,
+    "mean_training_loss": 0.07755854662239413,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.09502566828259215,
+          "recall": 0.12422495705691071
+        },
+        "200": {
+          "ndcg": 0.18877381270697377,
+          "recall": 0.483699075915936
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 401.78205541698844,
+    "epoch": 28,
+    "mean_training_loss": 0.07076132782525005,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.09695279589656684,
+          "recall": 0.12310638567924138
+        },
+        "200": {
+          "ndcg": 0.1928936711063028,
+          "recall": 0.4886991247333542
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 416.2176099169883,
+    "epoch": 29,
+    "mean_training_loss": 0.067692862956631,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.0989485287983073,
+          "recall": 0.1275274808086657
+        },
+        "200": {
+          "ndcg": 0.19534782205958034,
+          "recall": 0.4972899228044955
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  },
+  {
+    "elapsed_seconds": 430.6384741249931,
+    "epoch": 30,
+    "mean_training_loss": 0.06353901685046005,
+    "validation": {
+      "catalog_channels": 19861,
+      "coverage": {
+        "eligible_users": 3441,
+        "known_users": 3604,
+        "known_users_without_eligible_labels": 163,
+        "unknown_channel_pairs": 3071,
+        "unknown_user_pairs": 696,
+        "unknown_users": 136,
+        "validation_user_channel_pairs": 18263,
+        "validation_users": 3740
+      },
+      "method": "two_tower_exact_dot_product",
+      "metrics": {
+        "10": {
+          "ndcg": 0.10071021333372608,
+          "recall": 0.12883827607636175
+        },
+        "200": {
+          "ndcg": 0.19945697962313194,
+          "recall": 0.5063726243287934
+        }
+      },
+      "protocol": {
+        "averaging": "equal user weights",
+        "queries": "one per eligible training-known user at validation start",
+        "relevance": "distinct training-known validation channels; repeat viewing allowed",
+        "score_ties": "ascending internal channel index"
+      },
+      "split": "validation"
+    }
+  }
+]

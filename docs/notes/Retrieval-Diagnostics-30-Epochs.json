@@ -1,0 +1,174 @@
+{
+  "model": "artifacts/retrieval-30epochs-v001",
+  "selected_epoch": 30,
+  "source_fingerprints": {
+    "channel_mapping.json": "3ff7c8741af8599cacb5c617012809f1dd9677e9d3c93d391563b10117de6ad9",
+    "data_manifest.json": "5f3ed96571d82356e9a3aafb67b08c6ee5d73dc49eb5c6148eddba3b89707f30",
+    "train.parquet": "9e3da6053c502db85fa8933fa0fbc2fa10d29bc080afb2fcd71d9b13c2df5d09",
+    "user_mapping.json": "ac58b97b58d77514f8d9c5273a34fdf72d2c23bdfe3eb22fcc6b490aae3b672f",
+    "validation.parquet": "3cc87d41a3d3653a873f60638fb9fe5f75ec168cdd13d05df47d828581eb2a9d"
+  },
+  "data": {
+    "training_rows": 103280,
+    "training_users": 4802,
+    "training_channels": 19861,
+    "coverage": {
+      "validation_users": 3740,
+      "known_users": 3604,
+      "unknown_users": 136,
+      "eligible_users": 3441,
+      "known_users_without_eligible_labels": 163,
+      "validation_user_channel_pairs": 18263,
+      "unknown_channel_pairs": 3071,
+      "unknown_user_pairs": 696
+    },
+    "user_observation_quantiles": {
+      "0.1": 4.0,
+      "0.25": 6.0,
+      "0.5": 12.0,
+      "0.75": 27.0,
+      "0.9": 54.0,
+      "0.99": 113.0
+    },
+    "user_distinct_channel_quantiles": {
+      "0.1": 2.0,
+      "0.25": 4.0,
+      "0.5": 8.0,
+      "0.75": 15.0,
+      "0.9": 27.0,
+      "0.99": 55.0
+    },
+    "channel_observation_quantiles": {
+      "0.1": 1.0,
+      "0.25": 1.0,
+      "0.5": 1.0,
+      "0.75": 3.0,
+      "0.9": 9.0,
+      "0.99": 65.0
+    },
+    "channels_with_at_most_5_observations": 16752,
+    "users_with_at_most_5_observations": 1029
+  },
+  "concentration": {
+    "10": {
+      "catalog_fraction": 0.0005034993202759176,
+      "training_observation_fraction": 0.06833849728892331,
+      "eligible_validation_pair_fraction": 0.07490712597095575,
+      "distinct_training_user_channel_pair_fraction": 0.059867436390848836
+    },
+    "50": {
+      "catalog_fraction": 0.002517496601379588,
+      "training_observation_fraction": 0.16086367157242448,
+      "eligible_validation_pair_fraction": 0.18203309692671396,
+      "distinct_training_user_channel_pair_fraction": 0.14259496828451287
+    },
+    "200": {
+      "catalog_fraction": 0.010069986405518353,
+      "training_observation_fraction": 0.2984217660728118,
+      "eligible_validation_pair_fraction": 0.32847011144883487,
+      "distinct_training_user_channel_pair_fraction": 0.2625971064072411
+    }
+  },
+  "history_buckets": {
+    "1-5": {
+      "eligible_users": 586,
+      "metrics": {
+        "popular": {
+          "10": {
+            "recall": 0.12029548475794209,
+            "ndcg": 0.09263720914040412
+          },
+          "200": {
+            "recall": 0.3748507559941007,
+            "ndcg": 0.1484979068481333
+          }
+        },
+        "model": {
+          "10": {
+            "recall": 0.09611290302416582,
+            "ndcg": 0.05738775441438642
+          },
+          "200": {
+            "recall": 0.43012659032283607,
+            "ndcg": 0.12596067646244388
+          }
+        }
+      }
+    },
+    "6-20": {
+      "eligible_users": 1387,
+      "metrics": {
+        "popular": {
+          "10": {
+            "recall": 0.0912665793852443,
+            "ndcg": 0.07344943152394189
+          },
+          "200": {
+            "recall": 0.3473028437085437,
+            "ndcg": 0.13327132977381295
+          }
+        },
+        "model": {
+          "10": {
+            "recall": 0.14377770880697213,
+            "ndcg": 0.09667437265139012
+          },
+          "200": {
+            "recall": 0.5161029573175975,
+            "ndcg": 0.18149791970697376
+          }
+        }
+      }
+    },
+    "21-100": {
+      "eligible_users": 1383,
+      "metrics": {
+        "popular": {
+          "10": {
+            "recall": 0.06539947181408916,
+            "ndcg": 0.06784094329453536
+          },
+          "200": {
+            "recall": 0.3205638070400895,
+            "ndcg": 0.1449781667207941
+          }
+        },
+        "model": {
+          "10": {
+            "recall": 0.13031836167558877,
+            "ndcg": 0.12181981351904705
+          },
+          "200": {
+            "recall": 0.5296010829574475,
+            "ndcg": 0.2442889108391157
+          }
+        }
+      }
+    },
+    "101+": {
+      "eligible_users": 85,
+      "metrics": {
+        "popular": {
+          "10": {
+            "recall": 0.051198386510504734,
+            "ndcg": 0.0896325157156781
+          },
+          "200": {
+            "recall": 0.2266275544722642,
+            "ndcg": 0.14948095518579796
+          }
+        },
+        "model": {
+          "10": {
+            "recall": 0.08659259404694095,
+            "ndcg": 0.12177015329648026
+          },
+          "200": {
+            "recall": 0.49530492772398527,
+            "ndcg": 0.2697568488486498
+          }
+        }
+      }
+    }
+  }
+}

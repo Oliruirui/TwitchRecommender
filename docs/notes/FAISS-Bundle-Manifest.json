@@ -1,0 +1,28 @@
+{
+  "file_checksums": {
+    "channel_mapping.json": "3ff7c8741af8599cacb5c617012809f1dd9677e9d3c93d391563b10117de6ad9",
+    "channel_vectors.npy": "d83a536da19a2ad6e6fac0c75b3d378c0d929b03e2f58f7b3614923e96379d3a",
+    "channels.faiss": "7b47661e6d7ef840691b88603d823e050d1428afe0974b3a98fff9b72d43f992",
+    "model_config.json": "0be88eb7eeceb3d910e02bed26fa31a495d343d32ed9fcff3db6c3fbcc9dd897",
+    "popular_channels.json": "f22dbec05e8a206e6c182161006f8a91d52b745051b2687d3eb5cb3fc4b2d14f",
+    "retrieval_model.pt": "4353ab3e70d8d5b30e364b8fb26d35cfa4315dccccd2a89a9f4519037ab5b122",
+    "user_mapping.json": "ac58b97b58d77514f8d9c5273a34fdf72d2c23bdfe3eb22fcc6b490aae3b672f"
+  },
+  "id_order": "row i is channel_mapping index i; bundle-local IDs, not Twitch numeric IDs",
+  "index": {
+    "count": 19861,
+    "dimension": 32,
+    "type": "IndexFlatIP"
+  },
+  "model_version": "retrieval-bundle-v001",
+  "normalized": false,
+  "runtime": {
+    "faiss": "1.15.1",
+    "numpy": "2.5.4",
+    "torch": "2.14.1"
+  },
+  "schema_version": 1,
+  "score": "dot_product",
+  "selected_epoch": 30,
+  "ties": "FAISS may reorder or select different equal-scoring boundary channels"
+}
