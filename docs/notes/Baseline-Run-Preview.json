@@ -1,0 +1,45 @@
+{
+  "catalog_channels": 19861,
+  "coverage": {
+    "eligible_users": 3441,
+    "known_users": 3604,
+    "known_users_without_eligible_labels": 163,
+    "unknown_channel_pairs": 3071,
+    "unknown_user_pairs": 696,
+    "unknown_users": 136,
+    "validation_user_channel_pairs": 18263,
+    "validation_users": 3740
+  },
+  "method": "popular_distinct_training_users",
+  "metrics": {
+    "10": {
+      "ndcg": 0.07486270110205151,
+      "recall": 0.08482395584067601
+    },
+    "200": {
+      "ndcg": 0.14097000685118738,
+      "recall": 0.33826639770499256
+    }
+  },
+  "protocol": {
+    "averaging": "equal weight per user with at least one eligible label",
+    "ndcg": "binary relevance; ideal DCG over min(K, eligible relevant channels)",
+    "queries": "one per training-known user at validation start; no validation feature updates",
+    "relevance": "distinct validation channels within training catalog; repeat viewing allowed",
+    "unknown_coverage": "unknown_user_pairs and unknown_channel_pairs use all validation_user_channel_pairs as denominator and may overlap; user counts use validation_users"
+  },
+  "provenance": {
+    "manifest_sha256": "5f3ed96571d82356e9a3aafb67b08c6ee5d73dc49eb5c6148eddba3b89707f30",
+    "seed": 42,
+    "source_sha256": "11d3bdb49683f651eb6b0ba806bf317db68646efc0c7de2d02d750201fd8ef69",
+    "timeline": {
+      "lower": 0,
+      "train_end": 4304,
+      "upper": 6149,
+      "validation_end": 5226
+    },
+    "train_sha256": "9e3da6053c502db85fa8933fa0fbc2fa10d29bc080afb2fcd71d9b13c2df5d09",
+    "validation_sha256": "3cc87d41a3d3653a873f60638fb9fe5f75ec168cdd13d05df47d828581eb2a9d"
+  },
+  "split": "validation"
+}

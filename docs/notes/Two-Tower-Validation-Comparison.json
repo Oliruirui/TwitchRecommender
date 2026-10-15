@@ -1,0 +1,94 @@
+{
+  "elapsed_seconds": 140.74404816699825,
+  "popular": {
+    "catalog_channels": 19861,
+    "coverage": {
+      "eligible_users": 3441,
+      "known_users": 3604,
+      "known_users_without_eligible_labels": 163,
+      "unknown_channel_pairs": 3071,
+      "unknown_user_pairs": 696,
+      "unknown_users": 136,
+      "validation_user_channel_pairs": 18263,
+      "validation_users": 3740
+    },
+    "method": "popular_distinct_training_users",
+    "metrics": {
+      "10": {
+        "ndcg": 0.07486270110205151,
+        "recall": 0.08482395584067601
+      },
+      "200": {
+        "ndcg": 0.14097000685118738,
+        "recall": 0.33826639770499256
+      }
+    },
+    "protocol": {
+      "averaging": "equal weight per user with at least one eligible label",
+      "ndcg": "binary relevance; ideal DCG over min(K, eligible relevant channels)",
+      "queries": "one per training-known user at validation start; no validation feature updates",
+      "relevance": "distinct validation channels within training catalog; repeat viewing allowed",
+      "unknown_coverage": "unknown_user_pairs and unknown_channel_pairs use all validation_user_channel_pairs as denominator and may overlap; user counts use validation_users"
+    },
+    "split": "validation"
+  },
+  "provenance": {
+    "channel_mapping.json": "3ff7c8741af8599cacb5c617012809f1dd9677e9d3c93d391563b10117de6ad9",
+    "data_manifest.json": "5f3ed96571d82356e9a3aafb67b08c6ee5d73dc49eb5c6148eddba3b89707f30",
+    "train.parquet": "9e3da6053c502db85fa8933fa0fbc2fa10d29bc080afb2fcd71d9b13c2df5d09",
+    "user_mapping.json": "ac58b97b58d77514f8d9c5273a34fdf72d2c23bdfe3eb22fcc6b490aae3b672f",
+    "validation.parquet": "3cc87d41a3d3653a873f60638fb9fe5f75ec168cdd13d05df47d828581eb2a9d"
+  },
+  "runtime": {
+    "device": "cpu",
+    "numpy": "2.5.4",
+    "python": "3.12.14",
+    "threads": 1,
+    "torch": "2.14.1"
+  },
+  "selected_epoch": 10,
+  "skipped_examples": 0,
+  "test_evaluated": false,
+  "trainable_examples": 103280,
+  "training": {
+    "batch_size": 256,
+    "dimension": 32,
+    "epochs": 10,
+    "evaluation_user_batch_size": 64,
+    "learning_rate": 0.001,
+    "negative_count": 5,
+    "seed": 42,
+    "threads": 1
+  },
+  "two_tower": {
+    "catalog_channels": 19861,
+    "coverage": {
+      "eligible_users": 3441,
+      "known_users": 3604,
+      "known_users_without_eligible_labels": 163,
+      "unknown_channel_pairs": 3071,
+      "unknown_user_pairs": 696,
+      "unknown_users": 136,
+      "validation_user_channel_pairs": 18263,
+      "validation_users": 3740
+    },
+    "method": "two_tower_exact_dot_product",
+    "metrics": {
+      "10": {
+        "ndcg": 0.03845148379751161,
+        "recall": 0.05224177336915262
+      },
+      "200": {
+        "ndcg": 0.07970240075581314,
+        "recall": 0.21680529675438645
+      }
+    },
+    "protocol": {
+      "averaging": "equal user weights",
+      "queries": "one per eligible training-known user at validation start",
+      "relevance": "distinct training-known validation channels; repeat viewing allowed",
+      "score_ties": "ascending internal channel index"
+    },
+    "split": "validation"
+  }
+}
