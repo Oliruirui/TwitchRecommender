@@ -21,6 +21,10 @@ Designs, learning notes and recorded experiment results for building TwitchRecom
 
 The original [project implementation outline](notes/TwitchRecommender-Implementation-Plan-v0.1.md) records early assumptions. Newer approved milestone designs take precedence. The Spring Boot decision supersedes the earlier plan to retain plain Servlets; the Java-to-Python integration remains a separate later PR.
 
+## Java migration
+
+The [Spring Boot backend](notes/Spring-Boot-Migration-Results.md) replaces the legacy Servlet/WAR setup. Its migration PR is being prepared; Java-to-Python recommendation integration is the next milestone. Run Java under JDK 21 and use the checked-in Maven Wrapper.
+
 ## Learning notes
 
 - Training uses historical interactions to learn user/channel representations. Serving uses the already-trained model and FAISS index; it does not train per request.

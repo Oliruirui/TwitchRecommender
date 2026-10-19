@@ -73,6 +73,8 @@ class TwitchClientTest {
         assertEquals("game_id=42&first=20", query);
         JsonNode stream = mapper.valueToTree(result.get("STREAM").getFirst());
         assertEquals(mapper.readTree("{\"id\":\"s1\",\"title\":\"A stream\",\"broadcaster_name\":\"alice\",\"url\":\"https://www.twitch.tv/alice\",\"thumbnail_url\":\"https://example.test/stream.jpg\",\"game_id\":\"42\",\"item_type\":\"STREAM\"}"), stream);
+        assertEquals(mapper.readTree("{\"id\":\"c1\",\"title\":\"A clip\",\"broadcaster_name\":\"alice\",\"url\":\"https://example.test/clip\",\"thumbnail_url\":\"https://example.test/clip.jpg\",\"game_id\":\"42\",\"item_type\":\"CLIP\"}"), mapper.valueToTree(result.get("CLIP").getFirst()));
+        assertEquals(mapper.readTree("{\"id\":\"v1\",\"title\":\"A video\",\"broadcaster_name\":\"alice\",\"url\":\"https://example.test/video\",\"thumbnail_url\":\"https://example.test/video.jpg\",\"game_id\":\"42\",\"item_type\":\"VIDEO\"}"), mapper.valueToTree(result.get("VIDEO").getFirst()));
         assertEquals(ItemType.CLIP, result.get("CLIP").getFirst().getType());
         assertEquals("https://example.test/clip", result.get("CLIP").getFirst().getUrl());
         assertEquals(ItemType.VIDEO, result.get("VIDEO").getFirst().getType());
@@ -102,8 +104,9 @@ class TwitchClientTest {
     }
     @Test void timeoutAndIoFailuresMapToTypedError() throws Exception {
         HttpClient transport = mock(HttpClient.class);
-        when(transport.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
-            .thenThrow(new HttpTimeoutException("private transport detail"), new IOException("private detail"));
+        when(transport.sendAsync(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
+            .thenReturn(java.util.concurrent.CompletableFuture.failedFuture(new HttpTimeoutException("private transport detail")),
+                        java.util.concurrent.CompletableFuture.failedFuture(new IOException("private detail")));
         var client = new TwitchClient(transport, mapper, base, "id", "token");
         for (int i=0;i<2;i++) assertEquals(TwitchException.Reason.UPSTREAM_FAILURE, assertThrows(TwitchException.class, () -> client.topGames(10)).getReason());
     }
@@ -118,4 +121,21 @@ class TwitchClientTest {
         body = "{\"data\":[{\"id\":{},\"title\":\"bad\"}]}";
         assertEquals(TwitchException.Reason.UPSTREAM_FAILURE, assertThrows(TwitchException.class, () -> client().searchByType("42", ItemType.CLIP, 20)).getReason());
     }
+    @Test void requestTimeoutBoundsDelayedResponseBody() throws Exception {
+        var release=new java.util.concurrent.CountDownLatch(1);
+        server.removeContext("/helix/");
+        server.createContext("/helix/", exchange -> {
+            exchange.sendResponseHeaders(200,0);
+            try { release.await(10,java.util.concurrent.TimeUnit.SECONDS); }
+            catch(InterruptedException e){Thread.currentThread().interrupt();}
+            exchange.close();
+        });
+        try(var executor=java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor()) {
+            var result=executor.submit(()->assertThrows(TwitchException.class,()->client().topGames(10)).getReason());
+            try {
+                assertEquals(TwitchException.Reason.UPSTREAM_FAILURE,result.get(3,java.util.concurrent.TimeUnit.SECONDS));
+            } finally {release.countDown();result.cancel(true);}
+        }
+    }
+
 }

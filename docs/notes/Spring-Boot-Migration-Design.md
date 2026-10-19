@@ -1,6 +1,6 @@
 # Spring Boot migration design — October 15, 2026
 
-Status: design approved on October 15, 2026; implementation plan and migration code are pending.
+Status: design approved on October 15, 2026; implementation completed and under PR review. See [results](Spring-Boot-Migration-Results.md).
 
 ## Goal and boundary
 

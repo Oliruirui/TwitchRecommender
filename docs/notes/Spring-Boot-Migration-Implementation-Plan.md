@@ -10,7 +10,7 @@
 
 **Spec:** [Approved migration design](Spring-Boot-Migration-Design.md).
 
-**Status:** Proposed for implementation review. No application code or dependencies changed while preparing this plan.
+**Status:** Approved and implemented on October 15, 2026; final review/delivery tracked in the milestone results. Original checklists are retained as the implementation brief.
 
 ## Global constraints
 

@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import static com.example.myProject1.externalTwitch.TwitchException.Reason.*;
 
@@ -44,11 +48,14 @@ public class TwitchClient {
 
     private JsonNode data(String path) throws TwitchException {
         if (clientId.isBlank() || accessToken.isBlank()) throw new TwitchException(UNCONFIGURED);
+        CompletableFuture<HttpResponse<String>> responseFuture = null;
         try {
             HttpRequest request = HttpRequest.newBuilder(base.resolve(path))
                 .header("Client-Id", clientId).header("Authorization", "Bearer " + accessToken)
                 .timeout(Duration.ofSeconds(2)).GET().build();
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            // Bound the entire response, including a body that stalls after headers.
+            responseFuture = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            HttpResponse<String> response = responseFuture.get(2, TimeUnit.SECONDS);
             if (response.statusCode() < 200 || response.statusCode() >= 300) throw new TwitchException(UPSTREAM_FAILURE);
             JsonNode envelope = mapper.readTree(response.body());
             if (envelope == null || !envelope.isObject() || !envelope.path("data").isArray()) throw new TwitchException(UPSTREAM_FAILURE);
@@ -56,8 +63,10 @@ public class TwitchClient {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new TwitchException(UPSTREAM_FAILURE);
-        } catch (IOException | IllegalArgumentException e) {
+        } catch (IOException | IllegalArgumentException | ExecutionException | TimeoutException e) {
             throw new TwitchException(UPSTREAM_FAILURE);
+        } finally {
+            if (responseFuture != null && !responseFuture.isDone()) responseFuture.cancel(true);
         }
     }
 
@@ -95,7 +104,12 @@ public class TwitchClient {
         for (Item item : items) {
             item.setGameID(gameId);
             item.setType(type);
-            if (type == ItemType.STREAM) item.setUrl("https://www.twitch.tv/" + item.getBroadcasterName());
+            if (type == ItemType.STREAM) {
+                if (item.getBroadcasterName() == null || item.getBroadcasterName().isBlank()) {
+                    throw new TwitchException(UPSTREAM_FAILURE);
+                }
+                item.setUrl("https://www.twitch.tv/" + item.getBroadcasterName());
+            }
         }
         return items;
     }

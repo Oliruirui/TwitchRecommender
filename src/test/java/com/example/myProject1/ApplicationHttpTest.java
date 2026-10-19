@@ -48,6 +48,7 @@ class ApplicationHttpTest {
 @DirtiesContext
 class ApplicationFixtureHttpTest {
     static HttpServer upstream;
+    static volatile String streamsPayload = "{\"data\":[]}";
     @Autowired TestRestTemplate http;
     @Autowired ObjectMapper mapper;
 
@@ -63,6 +64,14 @@ class ApplicationFixtureHttpTest {
             exchange.sendResponseHeaders(200,body.length);
             try(var out=exchange.getResponseBody()){out.write(body);}
         });
+        for (String resource : new String[]{"streams", "clips", "videos"}) {
+            upstream.createContext("/helix/"+resource, exchange -> {
+                String json=resource.equals("streams") ? streamsPayload : "{\"data\":[]}";
+                byte[] bytes=json.getBytes(StandardCharsets.UTF_8);
+                exchange.sendResponseHeaders(200,bytes.length);
+                try(var out=exchange.getResponseBody()){out.write(bytes);}
+            });
+        }
         upstream.start();
         properties.add("twitch.api-base-url",()->"http://127.0.0.1:"+upstream.getAddress().getPort()+"/helix/");
     }
@@ -71,6 +80,18 @@ class ApplicationFixtureHttpTest {
         var response=http.getForEntity("/game?name=Minecraft",String.class);
         assertEquals(200,response.getStatusCode().value());
         assertEquals(mapper.readTree("{\"id\":\"42\",\"name\":\"Minecraft\",\"box_art_url\":\"https://example.test/box\"}"),mapper.readTree(response.getBody()));
+    }
+    @org.junit.jupiter.params.ParameterizedTest
+    @org.junit.jupiter.params.provider.ValueSource(strings={
+        "{\"data\":[{\"id\":\"s1\"}]}",
+        "{\"data\":[{\"id\":\"s1\",\"user_name\":null}]}",
+        "{\"data\":[{\"id\":\"s1\",\"user_name\":\"\"}]}",
+        "{\"data\":[{\"id\":\"s1\",\"user_name\":\"   \"}]}"})
+    void malformedStreamBroadcasterReturns502(String payload) throws Exception {
+        streamsPayload=payload;
+        var response=http.getForEntity("/search?game_id=42",String.class);
+        assertEquals(502,response.getStatusCode().value());
+        assertEquals(mapper.readTree("{\"error\":\"upstream_failure\"}"),mapper.readTree(response.getBody()));
     }
     @Test void concurrentRequestsKeepSeparateNames() throws Exception {
         try(var executor=Executors.newVirtualThreadPerTaskExecutor()) {
