@@ -7,7 +7,7 @@ Designs, learning notes and recorded experiment results for building TwitchRecom
 - [High-level design](notes/TwitchRecommender-HLD-v0.1.md)
 - [Working low-level design](notes/TwitchRecommender-LLD-v0.1.md): agreed details and future proposals; not all planned components exist yet.
 - [Current Python installation, training, export and API instructions](../recommendation/README.md)
-- [Approved Spring Boot migration design](notes/Spring-Boot-Migration-Design.md): next milestone; implementation pending.
+- [Spring Boot migration](notes/Spring-Boot-Migration-Design.md): design, [implementation plan](notes/Spring-Boot-Migration-Implementation-Plan.md) and [verification results](notes/Spring-Boot-Migration-Results.md).
 
 ## Implemented milestones
 
@@ -20,6 +20,10 @@ Designs, learning notes and recorded experiment results for building TwitchRecom
 | Python retrieval API | [Results](notes/Python-Retrieval-Service-Results.md), [original plan](notes/Python-Retrieval-Service-Implementation-Plan.md), [HTTP responses](notes/Python-Retrieval-Service-HTTP-Results.json) | [Merged PR #4](https://github.com/Oliruirui/TwitchRecommender/pull/4) |
 
 The original [project implementation outline](notes/TwitchRecommender-Implementation-Plan-v0.1.md) records early assumptions. Newer approved milestone designs take precedence. The Spring Boot decision supersedes the earlier plan to retain plain Servlets; the Java-to-Python integration remains a separate later PR.
+
+## Java migration
+
+The [Spring Boot backend](notes/Spring-Boot-Migration-Results.md) replaces the legacy Servlet/WAR setup. Its [migration PR #6](https://github.com/Oliruirui/TwitchRecommender/pull/6) is open for review; Java-to-Python recommendation integration is the next milestone. Run Java under JDK 21 and use the checked-in Maven Wrapper.
 
 ## Learning notes
 
