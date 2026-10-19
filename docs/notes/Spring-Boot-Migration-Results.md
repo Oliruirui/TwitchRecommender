@@ -39,3 +39,7 @@ Independent review reproduced missing stream broadcaster data producing a fabric
 A follow-up test also proved that the JDK request timeout alone did not bound a delayed response body. The client now waits at most two seconds for the complete async response, cancels an unfinished request, and maps failures to the existing sanitized error. The delayed-body regression failed before the fix and passes afterward. Full STREAM/CLIP/VIDEO serialization assertions pass.
 
 Review boundaries retained: validation covers fields used in current parsing/enrichment, not a complete independent implementation of Twitch’s schemas; other malformed metadata may need future checks. Live credential validity/revocation and renewal are managed separately; this milestone does not verify credential administration. Windows and production capacity require separate validation. No deferred Minor findings.
+
+## Delivery
+
+[PR #6](https://github.com/Oliruirui/TwitchRecommender/pull/6) is open for review, not merged. Final commits include the independent-review fixes and recorded test evidence. The developer’s local IntelliJ SDK/module changes are intentionally excluded.
