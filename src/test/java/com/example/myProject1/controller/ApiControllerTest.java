@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(properties={"twitch.client-id=", "twitch.access-token="})
+@WebMvcTest(controllers={GameController.class, SearchController.class}, properties={"twitch.client-id=", "twitch.access-token="})
 @Import(TwitchConfiguration.class)
 class ApiControllerTest {
     @Autowired MockMvc mvc;

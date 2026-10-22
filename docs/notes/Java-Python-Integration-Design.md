@@ -1,0 +1,11 @@
+# Java → Python recommendation integration
+
+Status: narrowed scope and HTTP contract approved in conversation. This supersedes the earlier proposal for Java-local popularity fallback.
+
+Add POST /api/recommendations to Spring Boot. Accept JSON user_id (strict string, trimmed, 1–128 Unicode code points) and k (strict JSON integer1–200, default10). Invalid input returns400 invalid_request without calling Python. Call existing Python POST /v1/recommendations and preserve its successful JSON response, including request_id, model_version, method, fallback_reason and ordered items. Python's unknown_user/retrieval_error popularity responses remain successful200 results.
+
+Use a small Java HTTP client class inside the existing application, not another service. Configure RECOMMENDER_BASE_URL (default http://127.0.0.1:8000), RECOMMENDER_CONNECT_TIMEOUT_MS (default200), RECOMMENDER_REQUEST_TIMEOUT_MS (default2000). Use a separate, explicitly qualified HttpClient bean to avoid changing Twitch transport. No redirects or application retries. Bound the complete response including body and cancel unfinished calls. Restore interruption status.
+
+Unavailable Python, timeouts, non200 or invalid response return503 {"error":"recommendation_unavailable"}. Require a JSON object response with UUID request ID, supported model-version string, valid method/reason pair,1..k unique items with canonical integer-string IDs, nonblank channel names, finite numeric personalized scores or null popular scores. Reject malformed/types/missing fields and do not relay raw upstream errors. Preserve scores/order rather than reranking. No Java-local fallback, snapshot loader, model training, Python changes, authentication, account mapping, frontend, Twitch enrichment or deployment changes.
+
+Test with a loopback stub: request forwarding/defaults/normalization, exact personalized and popular responses, strict validation before network, non200/malformed responses, connection failure and delayed headers/body. Run existing Java/Python suites and actual Java→Python acceptance using saved local artifacts and separate ports. One implementation PR, independent review, no automatic merge. Historical dataset user IDs only; Twitch credentials are unnecessary.
