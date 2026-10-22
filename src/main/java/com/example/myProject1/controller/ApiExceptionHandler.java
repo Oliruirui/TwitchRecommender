@@ -13,6 +13,9 @@ import java.util.Map;
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
 
+    @ExceptionHandler(com.example.myProject1.recommendation.RecommendationUnavailableException.class)
+    public ResponseEntity<Object> recommendationFailure() { return error(503, "recommendation_unavailable"); }
+
     @ExceptionHandler(TwitchException.class)
     public ResponseEntity<Object> twitchFailure(TwitchException failure) {
         return switch (failure.getReason()) {

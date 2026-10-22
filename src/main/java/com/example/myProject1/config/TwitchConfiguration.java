@@ -33,7 +33,7 @@ public class TwitchConfiguration {
             .followRedirects(HttpClient.Redirect.NEVER).build();
     }
 
-    @Bean public TwitchClient twitchClient(HttpClient twitchHttpClient, ObjectMapper mapper,
+    @Bean public TwitchClient twitchClient(@org.springframework.beans.factory.annotation.Qualifier("twitchHttpClient") HttpClient twitchHttpClient, ObjectMapper mapper,
             @Value("${twitch.api-base-url}") URI base,
             @Value("${twitch.client-id}") String clientId,
             @Value("${twitch.access-token}") String token) {

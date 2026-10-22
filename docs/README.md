@@ -41,3 +41,7 @@ At the end of the project, revisit why two towers were chosen, what the examples
 Markdown notes, small aggregate metric reports, example API responses, an experiment configuration and a learning-curve chart. Workstation-specific Python commands were normalized to `.venv/bin/python`; raw evidence values were retained, with absolute workstation paths removed where present. Plans retain their original checklist states for historical context.
 
 Raw datasets, user-event tables, trained weights, FAISS indexes, credentials, patches and internal execution logs are not included. Source changes are available through their PRs. Files named as training/export outputs in examples are generated locally; this notebook does not supply those artifacts. Runtime manifests here are examples from a recorded run, not deployable bundles.
+
+## Java recommendation integration
+
+[Design](notes/Java-Python-Integration-Design.md), [implementation plan](notes/Java-Python-Integration-Implementation-Plan.md), and [results](notes/Java-Python-Integration-Results.md). Scope was narrowed to a controller and Python HTTP client: Python fallback passes through; unavailable Python returns503 without a Java-local snapshot. Earlier LLD snapshot proposals are deferred.
