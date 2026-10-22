@@ -23,7 +23,7 @@ The original [project implementation outline](notes/TwitchRecommender-Implementa
 
 ## Java migration
 
-The [Spring Boot backend](notes/Spring-Boot-Migration-Results.md) replaces the legacy Servlet/WAR setup. Its [migration PR #6](https://github.com/Oliruirui/TwitchRecommender/pull/6) is open for review; Java-to-Python recommendation integration is the next milestone. Run Java under JDK 21 and use the checked-in Maven Wrapper.
+The [Spring Boot backend](notes/Spring-Boot-Migration-Results.md) replaces the legacy Servlet/WAR setup. Its [migration PR #6](https://github.com/Oliruirui/TwitchRecommender/pull/6) is merged. The [Java-to-Python integration PR #7](https://github.com/Oliruirui/TwitchRecommender/pull/7) is open for review. Run Java under JDK 21 and use the checked-in Maven Wrapper.
 
 ## Learning notes
 

@@ -18,3 +18,9 @@ Java preserves Python's request ID, version, item order and scores. Unknown user
 Connection timeout defaults200ms and the entire HTTP response is bounded by a2000ms deadline, with cancellation and no application retries. These are initial settings, not measured throughput/latency targets. Invalid/non200/unavailable downstream responses map to a sanitized503; invalid caller input maps to400 before network access.
 
 Python remains responsible for exact catalog-relative Top K quality. Java checks shape/count≤K, identities, score validity and descending personalized scores, not independent model correctness. Local native execution is verified; Docker/Windows, production scale and authentication are future work.
+
+## Delivery and review
+
+[PR #7](https://github.com/Oliruirui/TwitchRecommender/pull/7) is open for review, not merged. Independent whole-branch review found no Critical, Important or Minor issues and independently reran all99 Java tests. The implementer verified Python75 and native end-to-end checks.
+
+Scope retained after review: ranking/model quality, production capacity/deployment, authentication/account mapping, frontend and Java-local fallback remain separate milestones; outage behavior is intentionally503. Those areas need separate implementation/validation before broader use.
