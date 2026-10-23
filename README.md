@@ -83,3 +83,7 @@ Unknown users and recoverable inference failures continue to use Python's existi
 Both timeouts must be positive, and connect timeout cannot exceed request timeout. Use a server-configured HTTP(S) URL; caller input cannot select the downstream host. Requests do not follow redirects or perform application retries. A separately qualified HTTP client leaves Twitch's existing timeouts unchanged. No Python code/model/training changes or new Java dependencies were required.
 
 To test in Postman, select POST, enter `http://127.0.0.1:8080/api/recommendations`, select Body → raw → JSON, and use the body above. To observe an outage response, stop your Python process and repeat; restarting Python restores normal forwarding without restarting Java. Do not stop a shared process you do not own.
+
+## React frontend
+
+See [frontend/README.md](frontend/README.md) for the React + TypeScript recommendation explorer, local startup and testing. Development UI: http://127.0.0.1:5173/. Java and Python must also be running.

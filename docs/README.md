@@ -23,13 +23,13 @@ The original [project implementation outline](notes/TwitchRecommender-Implementa
 
 ## Java migration
 
-The [Spring Boot backend](notes/Spring-Boot-Migration-Results.md) replaces the legacy Servlet/WAR setup. Its [migration PR #6](https://github.com/Oliruirui/TwitchRecommender/pull/6) is merged. The [Java-to-Python integration PR #7](https://github.com/Oliruirui/TwitchRecommender/pull/7) is open for review. Run Java under JDK 21 and use the checked-in Maven Wrapper.
+The [Spring Boot backend](notes/Spring-Boot-Migration-Results.md) replaces the legacy Servlet/WAR setup. Its [migration PR #6](https://github.com/Oliruirui/TwitchRecommender/pull/6) is merged. The [Java-to-Python integration PR #7](https://github.com/Oliruirui/TwitchRecommender/pull/7) is merged. Run Java under JDK 21 and use the checked-in Maven Wrapper.
 
 ## Learning notes
 
 - Training uses historical interactions to learn user/channel representations. Serving uses the already-trained model and FAISS index; it does not train per request.
 - Current predictions use dataset user identities and the history represented in training. New application activity is not connected yet. Unknown users receive popular channels.
-- FastAPI's `/docs` is generated API documentation/testing UI. The recommendation frontend has not been built.
+- FastAPI's `/docs` is generated API documentation/testing UI. The [React + TypeScript frontend](../frontend/README.md) is a separate local application using the Java API.
 - Retraining remains manual for now. Revisit scheduling after Java integration and event collection; daily training is a possible starting proposal, not an implemented default.
 - Higher validation Recall/NDCG in the thirty-epoch experiment is offline evidence, not proof of online engagement lift. The frozen test split remains reserved.
 - Docker/Linux execution and throughput targets remain unverified. Existing test counts in milestone reports are snapshots from their respective dates.
@@ -45,3 +45,7 @@ Raw datasets, user-event tables, trained weights, FAISS indexes, credentials, pa
 ## Java recommendation integration
 
 [Design](notes/Java-Python-Integration-Design.md), [implementation plan](notes/Java-Python-Integration-Implementation-Plan.md), and [results](notes/Java-Python-Integration-Results.md). Scope was narrowed to a controller and Python HTTP client: Python fallback passes through; unavailable Python returns503 without a Java-local snapshot. Earlier LLD snapshot proposals are deferred.
+
+## React frontend
+
+[Design](notes/React-Frontend-Design.md), [implementation plan](notes/React-Frontend-Implementation-Plan.md), [verification results](notes/React-Frontend-Results.md), and [local startup instructions](../frontend/README.md).
