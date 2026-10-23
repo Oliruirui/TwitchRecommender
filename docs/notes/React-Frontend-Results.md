@@ -23,3 +23,11 @@ In-app browser → Vite 5173 → Java 8080 → Python 8000, real local `retrieva
 - Browser layout inspected at the available desktop/tablet-width viewport. Narrow mobile devices and other browser engines are not separately verified.
 
 No production deployment, online-quality measurement, or throughput claim. Build output requires production routing configuration before deployment. Existing developer IDE files are excluded.
+
+## Independent review
+
+One fresh reviewer examined 767bc2f..c453e72 and independently reran all 27 frontend tests and the production build. No Critical/Important findings.
+
+Deferred minor: frontend response validation coerces fallback_reason using String(), so an array such as ["unknown_user"] could pass that check and omit the UI explanation. The current Java client rejects that malformed response before it reaches the frontend; tighten this defensive check in a follow-up.
+
+Scope decisions confirmed: empty-result handling is intentionally defensive although Java currently rejects empty lists; production routing remains future work; native browser fetch honors AbortSignal during request/body consumption. An artificial mock ignoring AbortSignal does not establish a production timeout defect. Screen-reader and narrow-mobile testing remain unverified.

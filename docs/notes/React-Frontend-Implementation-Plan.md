@@ -55,5 +55,5 @@ Files: frontend/README.md, docs/README.md, docs/notes/React-Frontend-Results.md.
 
 - [x] Document npm ci, npm run dev, npm test and npm run build; explain three local processes and historical user IDs.
 - [x] Verify known user, unknown-user fallback and Python outage/recovery in browser when services are available; report any untested scenario explicitly. Validate invalid input in component tests because UI fixes k=10.
-- [ ] Run final tests/build and one independent review; fix material findings with focused regression checks.
-- [ ] Commit only task files, push one feature branch and create one PR with actual test evidence. Attach PR to this chat; do not merge.
+- [x] Run final tests/build and one independent review; fix material findings with focused regression checks.
+- [x] Commit only task files, push one feature branch and create one PR with actual test evidence. Attach PR to this chat; do not merge.
